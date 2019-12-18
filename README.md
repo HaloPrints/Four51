@@ -1,8 +1,6 @@
-#### Puppet Labs - Tricor  / 18.10.1 CT Release and 1.3.0 SPA Release  (0415) - Last Updated: 10/16/15
+#### Default / 18.10.1 CT Release and 1.3.0 SPA Release  (0415) - Last Updated: 10/16/15
 ======== 
 
-##### Important Note! 
-The domain is actually shop.puppetlabs.com ( the /store was added just so we can access & create overrides if necessary )
 
 ##### Developers
 Four51: Miranda, Jen, Max
@@ -11,11 +9,8 @@ Four51: Miranda, Jen, Max
 * github.com/tricorprint/Tricor
 
 ##### Product Detail Template 
-* PuppetLabs - combined PDT for automagic matrix and lightbox 
+* combined PDT for automagic matrix and lightbox 
 
-##### Images
-* logo - css/images/PuppetLabs/PuppetLabsLogo.png
-* size charts - css/images/PuppetLabs/SizeCharts
 
 ##### Miscellaneous
 TRT-01901 Required Fields - Angular validation has been removed (customer did not want buttons disabled) - using a combination of HTML5 validation and alerts / error messaging
