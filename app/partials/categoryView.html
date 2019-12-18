@@ -1,0 +1,48 @@
+<section class="welcome">
+    <div class="col-md-9 col-md-offset-2">
+        <h3>Shop Puppet</h3>
+        <p>Welcome to the Puppet Labs Shop! We're delighted to bring you our most popular Puppet items &mdash; and hope you'll be thrilled to show off your Puppet pride.</p>
+        <br />
+        <p>Have a suggestion for a new item?
+            <button class="btn btn-sm" redirect="contact">Tell Us!</button>
+        </p>
+    </div>
+</section>
+<section>
+    <div class="product-list-container col-xs-12 col-md-9 col-md-offset-2">
+        <loadingindicator ng-show="productLoadingIndicator" title="{{'Please wait while we fetch all products' | r | xlat}}"/>
+        <productlistview></productlistview>
+    </div>
+</section>
+<section class="vintagemsg" id="vintagemsg" style="display:none;">
+    <div class="col-md-9 col-md-offset-2">
+        <h3 class="vintageH3">Don't forget to check out our "Vintage" Puppet Gear</h3>
+        <h3><a href="/store/catalog/Vintage">Get it while it lasts!</a></h3>
+    </div>
+    <script type="text/javascript">
+    	// SHOW VINTAGE MESSAGE
+	function vintagemsg() {
+	    var allproducturl = 'https://shop.puppetlabs.com/store/catalog/AllProducts';
+        var myurl = window.location;
+	    
+	    if(allproducturl == myurl) {
+	        document.getElementById("vintagemsg").style.display = 'block';
+        }
+        else{
+        }
+	}
+	window.setTimeout(vintagemsg, 300);
+	
+	
+	
+	function togglecat($scope) {
+
+	    $scope.visible = true;
+	    
+	    $scope.toggle = function() {
+	        $scope.visible = !scope.visible;
+	    };
+
+	}
+    </script>
+</section>

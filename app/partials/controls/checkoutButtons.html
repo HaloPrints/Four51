@@ -1,0 +1,30 @@
+<ul>
+    <style ng-if="continue">
+        .checkout orderbuttons ul li {float:left; margin-top:20px; }
+        .checkout orderbuttons ul li:nth-of-type(1) {
+            width: 50%;
+            padding-right:0.5em;
+        }
+        .checkout orderbuttons ul li:nth-of-type(2) {
+            width: 50%;
+            padding-left:0.5em;
+        }
+        @media (max-width: 768px) {
+            .checkout orderbuttons ul li {margin-top:0; }
+            .checkout orderbuttons ul li:nth-of-type(1) {margin-top:10px;}
+            .checkout orderbuttons ul li:nth-of-type(1),
+            .checkout orderbuttons ul li:nth-of-type(2) {
+                width:100%;
+                padding:0.4em 0.25em;
+            }
+        }
+    </style>
+    <li ng-if="continue">
+        <button type="button" class="btn btn-info" redirect="catalog">
+            <span>{{'Continue Shopping' | r | xlat}}</span>
+        </button>
+    </li>
+    <li>
+        <button class="btn btn-success" ng-click="submitOrder()"> <span>{{('Submit' | r) + ' ' + ('Order' | r) | xlat}}</span></button>
+    </li>
+</ul>

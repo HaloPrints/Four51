@@ -1,0 +1,131 @@
+<section class="jumbotron">
+    <div class="container">
+            <ul class="nav navbar-main hidden-xs hidden-sm">
+                    <li>
+                        <h2 class="thumbnail" ng-show="Four51User.isAuthenticated()">
+                             <a ng-click="refreshUser()" href="catalog">
+                                <img class="img-responsive" src="https://www.four51.com/images/company/a232ba66450b4d6799c5f3fc73a18b6e.png" alt="" />
+                            </a>
+                        </h2>
+                    </li>
+                    <li style="padding-left: 315px; padding-top:10px;">
+                        <a ng-class="{'active': isActive('AllProducts')}" id="451qa_order_link" href="/EXTEST/catalog">
+                            <span class="ng-binding">All Products</span>
+                        </a>
+                    </li>
+                    <li style="padding-left: 300px;">
+                        <a class="active" id="451qa_order_link" href="/EXTEST/catalog/Vintage">
+                            <span class="ng-binding">Vintage</span>
+                        </a>
+                    </li>
+                    <li ng-class="{'active': isActive(['contact'])}">
+                        <a class="active" id="451qa_order_link" href="contact">
+                            <span class="ng-binding">Contact Us</span>
+                        </a>
+                    </li>
+                    <li ng-class="{'active': isActive(['FAQ'])}">
+                        <a id="451qa_order_link" href="FAQ">
+                            <span>{{'FAQ' | r | xlat}}</span>
+                        </a>
+                    </li>
+                    <li class="report" ng-if="user.Type == 'Customer' && user.Permissions.contains('AdvancedReporting')" ng-class="{'active': isActive('reports')}">
+                        <a id="451qa_order_link" href="reports">
+                            <span>{{'Reports' | r | xlat}}</span>
+                        </a>
+                    </li>
+                    <li ng-class="{'active': isActive(['admin', 'addresses', 'address', 'messages', 'message', 'favoriteorders'])}">
+                        <a id="451qa_acct_link" href="admin">
+                            <span>{{'My Account' | r | xlat}}</span>
+                        </a>
+                    </li>
+                    <li class="logout" ng-if="user.Type =='Customer'">
+                        <a href="#"  class="451_btn_logout" ng-click="Logout()">
+                            <span>{{'Logout' | r | xlat}}</span>
+                        </a>
+                    </li>
+                    <li ng-if="user.Type !='Customer'" ng-class="{'active': isActive('admin')}">
+                        <a href="admin" class="451_btn_logout">
+                            <span>{{'Login' | r | xlat}}</span>
+                        </a>
+                    </li>
+                    <li class="cart" ng-class="{'active': isActive(['cart', 'checkout'])}">
+                        <a id="451qa_cart_link" ng-show="cartCount && user.CurrentOrderID" class="cart" href="cart">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>{{'View Cart' | r | xlat}}</span>
+                        </a>
+                    </li>
+            </ul>
+            
+
+<!-- MOBILE NAV-->
+<div class="hidden-md hidden-lg">
+                <ul>
+                    <li>
+                        <h1 class="thumbnail" ng-show="Four51User.isAuthenticated()">
+                            <a ng-click="refreshUser()" href="catalog">
+                                <img class="img-responsive" src="https://www.four51.com/images/company/a232ba66450b4d6799c5f3fc73a18b6e.png" alt="" />
+                            </a>
+        <div ng-init="isCollapsed2 = true" style="display:inline; float:right">
+            <a ng-click="isCollapsed2 = !isCollapsed2" ng-class="{'active': !isCollapsed2, '': isCollapsed2}">
+                <span><i class="fa fa-bars" style="color:#FFAE1A"></i></span>
+            </a>
+        </div>
+                        </h1>
+                    </li>
+                </ul>
+
+    <div class="col-xs-12 col-collapse" collapse="isCollapsed2">
+        <ul class="burgers2">
+                   <li>
+                        <a ng-class="{'active': isActive('AllProducts')}" id="451qa_order_link" href="/EXTEST/catalog">
+                            <span class="ng-binding">All Products</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="active" id="451qa_order_link" href="/EXTEST/catalog/Vintage">
+                            <span class="ng-binding">Vintage</span>
+                        </a>
+                    </li>
+                    <li ng-class="{'active': isActive(['contact'])}">
+                        <a class="active" id="451qa_order_link" href="contact">
+                            <span class="ng-binding">Contact Us</span>
+                        </a>
+                    </li>
+                    <li ng-class="{'active': isActive(['FAQ'])}">
+                        <a id="451qa_order_link" href="FAQ">
+                            <span>{{'FAQ' | r | xlat}}</span>
+                        </a>
+                    </li>
+                    <li class="report" ng-if="user.Type == 'Customer' && user.Permissions.contains('AdvancedReporting')" ng-class="{'active': isActive('reports')}">
+                        <a id="451qa_order_link" href="reports">
+                            <span>{{'Reports' | r | xlat}}</span>
+                        </a>
+                    </li>
+                    <li ng-class="{'active': isActive(['admin', 'addresses', 'address', 'messages', 'message', 'favoriteorders'])}">
+                        <a id="451qa_acct_link" href="admin">
+                            <span>{{'My Account' | r | xlat}}</span>
+                        </a>
+                    </li>
+                    <li class="logout" ng-if="user.Type =='Customer'">
+                        <a href="#"  class="451_btn_logout" ng-click="Logout()">
+                            <span>{{'Logout' | r | xlat}}</span>
+                        </a>
+                    </li>
+                    <li ng-if="user.Type !='Customer'" ng-class="{'active': isActive('admin')}">
+                        <a href="admin" class="451_btn_logout">
+                            <span>{{'Login' | r | xlat}}</span>
+                        </a>
+                    </li>
+                    <li class="cart" ng-class="{'active': isActive(['cart', 'checkout'])}">
+                        <a id="451qa_cart_link" ng-show="cartCount && user.CurrentOrderID" class="cart" href="cart">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>{{'View Cart' | r | xlat}}</span>
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+</section>

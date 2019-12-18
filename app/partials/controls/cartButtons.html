@@ -1,0 +1,61 @@
+<style>
+    .cart orderbuttons ul li.continue {
+        float: left;
+        width:20%;
+    }
+    .cart orderbuttons ul li.guest,
+    .cart orderbuttons ul li.checkout {
+        float: right;
+        width:20%;
+    }
+
+    .cart orderbuttons ul li.guest .btn {
+        left:-20px;
+    }
+
+    .cart orderbuttons ul li a {
+        padding-top: 9px;
+        padding-bottom: 9px;
+    }
+
+    @media (max-width: 768px) {
+        .cart orderbuttons ul li.continue,
+        .cart orderbuttons ul li.guest,
+        .cart orderbuttons ul li.checkout{
+            width:100%;
+            padding:0.4em 0.25em;
+        }
+
+        .cart orderbuttons ul li.guest .btn {
+            left:0;
+        }
+    }
+</style>
+<ul>
+    <li class="continue">
+        <button type="button" class="btn btn-info" redirect="catalog">
+            <span>{{'Continue Shopping' | r | xlat}}</span>
+        </button>
+    </li>
+    <li class="checkout" ng-if="user.Type == 'TempCustomer'" >
+        <a type="button" class="btn" ng-class="{'btn-warning': cart.$invalid, 'btn-success': !cart.$invalid }" href="admin"
+           ng-disabled="cart.$invalid || kitValidation">
+            <i ng-show="cart.$invalid || kitValidation" class="fa fa-warning"></i>
+            <span>{{'Login / Check Out' | r | xlat}} {{window.outerWidth}}</span>
+        </a>
+    </li>
+    <li class="checkout" ng-if="user.Type != 'TempCustomer'">
+        <button type="button" class="btn" ng-class="{'btn-warning': cart.$invalid, 'btn-success': !cart.$invalid }" ng-click="checkOut()"
+                ng-disabled="cart.$invalid || kitValidation">
+            <i ng-show="cart.$invalid || kitValidation" class="fa fa-warning"></i>
+            <span>{{'Check Out' | r | xlat}} {{window.outerWidth}}</span>
+        </button>
+    </li>
+    <li class="guest" ng-if="user.Type == 'TempCustomer'" >
+        <button type="button" class="btn" ng-class="{'btn-warning': cart.$invalid, 'btn-success': !cart.$invalid }" ng-click="checkOut()"
+                ng-disabled="cart.$invalid || kitValidation">
+            <i ng-show="cart.$invalid || kitValidation" class="fa fa-warning"></i>
+            <span>{{'Guest Check Out' | r | xlat}} {{window.outerWidth}}</span>
+        </button>
+    </li>
+</ul>
