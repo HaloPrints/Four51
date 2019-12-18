@@ -2,10 +2,10 @@ angular.module('OrderCloud-AnonRouter', []);
 
 angular.module('OrderCloud-AnonRouter')
 
-.run(run)
-.constant('after', 'checkout')
-.constant('before', 'checkout')
-.factory('AnonRouter', AnonRouter)
+    .run(run)
+    .constant('after', 'checkout')
+    .constant('before', 'checkout')
+    .factory('AnonRouter', AnonRouter)
 ;
 
 run.$inject = ['$rootScope', '$location', 'User', 'before'];
@@ -17,9 +17,9 @@ function run($rootScope, $location, User, before) {
             };
             if (route.New == before) {
                 User.get(function(u) {
-                  $location.path(u.Type == 'TempCustomer' ? 'admin' : route.New);
+                    $location.path(u.Type == 'TempCustomer' ? 'admin' : route.New);
                 });
-           }
+            }
         }
     );
 }
@@ -39,6 +39,6 @@ function AnonRouter($location, User, after) {
         }
         else {
             $location.path(after);
-       }
+        }
     }
 }

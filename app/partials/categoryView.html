@@ -1,48 +1,64 @@
-<section class="welcome">
-    <div class="col-md-9 col-md-offset-2">
-        <h3>Shop Puppet</h3>
-        <p>Welcome to the Puppet Labs Shop! We're delighted to bring you our most popular Puppet items &mdash; and hope you'll be thrilled to show off your Puppet pride.</p>
-        <br />
-        <p>Have a suggestion for a new item?
-            <button class="btn btn-sm" redirect="contact">Tell Us!</button>
-        </p>
-    </div>
-</section>
 <section>
-    <div class="product-list-container col-xs-12 col-md-9 col-md-offset-2">
-        <loadingindicator ng-show="productLoadingIndicator" title="{{'Please wait while we fetch all products' | r | xlat}}"/>
-        <productlistview></productlistview>
+    <nav id="451qa_nav_hdr" class="nav">
+        <ul>
+            <li style="cursor:pointer;">
+                <div class="category-toggle" ng-click="toggleNav()"> 
+                    <i class="fa fa-bars">
+                    </i> 
+                    <span id="451_lbl_curcat" class="category-toggle" ng-bind-html="currentCategory.Name || '  {{'Categories' | r | xlat}}'">
+                    </span>
+                </div>
+            </li>
+            <li class="pull-right">
+                <div style="display: inline;" ng-show="currentCategory.SortOptions.length > 0">                
+                    <label style="display: inline;">{{'Sort by: ' | r | xlat}}</label>
+                        <select class="alt-form-control" ng-options="option.SortValue as (option.Display | xlat) for option in currentCategory.SortOptions" ng-model="sort"><option value=""></option></select>
+                    <!--<i class="fa fa-sort"/>-->
+                </div>
+                <a href="search">
+                    <span><i class="fa fa-search text-primary"></i></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="row">
+        <aside class="col-md-3" ng-if="navStatus.visible">
+            <div class="panel panel-default panel-nav">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {{'Category List' | r | xlat}}
+                    </h3>
+                </div>
+                <nav class="nav 451qa_sidenav panel-body">
+                    <ul>
+                        <li class="451_cat_item" ng-repeat="node in tree" ng-class="{'active': isInPath(node.Name)}">
+                            <a ng-href="catalog/{{node.InteropID}}" ng-bind-html="node.Name"></a>
+                            <ul ng-if="node.SubCategories" ng-show="isInPath(node.InteropID) || subInPath(node.ShowCat)">
+                                <li class="451_cat_item" ng-repeat="subCat in node.SubCategories">
+                                    <a ng-class="{'active': subInPath(node.ShowCat)}" ng-href="catalog/{{subCat.InteropID}}" ng-bind-html="subCat.Name"></a>
+                                    <ul ng-if="subCat.SubCategories" ng-show="isInPath(subCat.InteropID) || subInPath(subCat.ShowCat)">
+                                        <li class="451_cat_item" ng-repeat="subCatTwo in subCat.SubCategories">
+                                            <a ng-class="{'active': subInPath(node.ShowCat)}" ng-href="catalog/{{subCatTwo.InteropID}}" ng-bind-html="subCatTwo.Name"></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            
+
+</aside>
+        <div ng-class="{ 'col-md-9': navStatus.visible, 'col-md-12': !navStatus.visible }" >
+
+            <categorylistview></categorylistview>
+
+            <loadingindicator ng-show="productLoadingIndicator" title="{{'Please wait while we fetch all products' | r | xlat}}"/>
+
+            <productlistview></productlistview>
+
+        </div>
     </div>
 </section>
-<section class="vintagemsg" id="vintagemsg" style="display:none;">
-    <div class="col-md-9 col-md-offset-2">
-        <h3 class="vintageH3">Don't forget to check out our "Vintage" Puppet Gear</h3>
-        <h3><a href="/store/catalog/Vintage">Get it while it lasts!</a></h3>
-    </div>
-    <script type="text/javascript">
-    	// SHOW VINTAGE MESSAGE
-	function vintagemsg() {
-	    var allproducturl = 'https://shop.puppetlabs.com/store/catalog/AllProducts';
-        var myurl = window.location;
-	    
-	    if(allproducturl == myurl) {
-	        document.getElementById("vintagemsg").style.display = 'block';
-        }
-        else{
-        }
-	}
-	window.setTimeout(vintagemsg, 300);
-	
-	
-	
-	function togglecat($scope) {
 
-	    $scope.visible = true;
-	    
-	    $scope.toggle = function() {
-	        $scope.visible = !scope.visible;
-	    };
-
-	}
-    </script>
-</section>

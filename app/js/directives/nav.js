@@ -7,15 +7,6 @@ four51.app.directive('navigation', function() {
 	return obj;
 });
 
-four51.app.directive('hamburgernavigation', function() {
-    var obj = {
-        restrict: 'E',
-        templateUrl: 'partials/controls/nav-burger.html',
-        controller: 'NavCtrl'
-    };
-    return obj;
-});
-
 four51.app.directive('accountnavigation', function() {
     var obj = {
         restrict: 'E',

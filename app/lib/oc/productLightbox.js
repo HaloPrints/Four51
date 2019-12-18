@@ -20,6 +20,18 @@ function productlightbox() {
 
     function template() {
         return [
+            '<style>',
+            '.galleryThumbs {width:100%;margin:0 auto;position: relative;text-align: center;}',
+            '.galleryThumbs li {padding: 3px 5px;list-style-type: none;display:inline-block;}',
+            '.galleryThumbs li:first-child {padding-left:0;}',
+            '.galleryThumbs .img-thumbnail {border:1px solid #ccc;max-height:50px;max-width:50px;padding:0}',
+            '.galleryThumbs .active .img-thumbnail {border:1px solid #6e6e6e;}',
+            '.galleryImages li {list-style-type:none;}',
+            '.galleryImages a {display:block;}',
+            '.galleryImages a.no-click {cursor:none;pointer-events: none;}',
+            '.galleryImages .product-image-large {display:none;}',
+            '.galleryImages .active .product-image-large {display:block !important;max-height:100%;max-width:100%;position:relative;top:0;}',
+            '</style>',
             '<div class="panel-body">',
             '<ul class="galleryImages">',
             '<li ng-repeat="image in LineItem.images">',
@@ -36,7 +48,7 @@ function productlightbox() {
             '<ul class="galleryThumbs">',
             '<li ng-repeat="image in LineItem.images">',
             '<a ng-click="$parent.index=$index" ng-class="{active: $index==$parent.index}">',
-            '<img ng-src="{{image.url}}" class="img-thumbnail" />',
+            '<img ng-src="{{image.url}}" class="img-thumbnail img-responsive" />',
             '</a>',
             '</li>',
             '</ul>',
@@ -228,7 +240,7 @@ function Lightbox() {
                     break;
             }
             if (method !== null && ['input', 'textarea'].indexOf(
-                    event.target.tagName.toLowerCase()) === -1) {
+                event.target.tagName.toLowerCase()) === -1) {
                 // the view doesn't update without a manual digest
                 $timeout(function () {
                     Lightbox[method]();
@@ -247,8 +259,8 @@ function imagelightboxtemplate () {
         '.lightbox-nav {position: relative;margin-bottom: 12px;text-align: center;font-size: 0;}',
         '.lightbox-nav .btn-group {vertical-align: top;}',
         '.lightbox-image-container {position: relative;text-align: center;}',
-        '.lightbox-image-caption {position: absolute;top: 0;left: 0;margin: 0.5em 0.9em;color: #000;font-size: 1.5em;font-weight: bold;text-align: left;' +
-        'text-shadow: 0.1em 0.1em 0.2em rgba(255, 255, 255, 0.5);}',
+            '.lightbox-image-caption {position: absolute;top: 0;left: 0;margin: 0.5em 0.9em;color: #000;font-size: 1.5em;font-weight: bold;text-align: left;' +
+            'text-shadow: 0.1em 0.1em 0.2em rgba(255, 255, 255, 0.5);}',
         '.lightbox-image-caption span {padding:0.1em 0; background-color: rgba(255, 255, 255, 0.75);box-shadow: 0.4em 0 0 rgba(255, 255, 255, 0.75),-0.4em 0 0 rgba(255, 255, 255, 0.75);}',
         '</style>',
         '<div class="modal-body" ng-swipe-left="Lightbox.nextImage()" ng-swipe-right="Lightbox.prevImage()">',

@@ -19,7 +19,7 @@
             <i ng-class="{'fa fa-check': currentOrder.PaymentMethod == 'BudgetAccount' || currentOrder.BudgetAccountID }"></i>
             {{'Spending Account' | r | xlat}}
         </button>
-        <button class="btn btn-default" type="button" ng-init="currentOrder.PaymentMethod = 'CreditCard'"
+       <button class="btn btn-default" type="button"
                 ng-if="user.AvailableCreditCards.length > 0 && user.Permissions.contains('PayByCreditCard')"
                 ng-click="currentOrder.PaymentMethod = 'CreditCard'">
             <i ng-class="{'fa fa-check': currentOrder.PaymentMethod == 'CreditCard' }"></i>

@@ -35,7 +35,7 @@ function Email() {
             }
         ];
         var message = {
-            'subject': "Puppet Labs (external) Comments or Questions",
+            'subject': "Comments or Questions",
             'from_email': parameters.Email,
             'from_name': parameters.Name,
             'to': [

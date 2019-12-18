@@ -204,7 +204,6 @@ four51.app.directive('ordershipping', ['Order', 'Shipper', 'Address', 'AddressLi
 						$scope.shippingFetchIndicator = false;
 					});
 				}
-				$scope.checkOutSection = 'billing';
 			};
 
 			$scope.$on('event:AddressCancel', function(event) {

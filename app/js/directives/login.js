@@ -2,9 +2,11 @@ four51.app.directive('login', function() {
 	var obj = {
 		restrict: 'E',
 		templateUrl: 'partials/controls/login.html',
-		controller: 'LoginCtrl'
+		controller: 'LoginCtrl',
 	}
+
 	return obj;
+
 });
 
 four51.app.directive('identifyusermessage', function() {
@@ -15,16 +17,19 @@ four51.app.directive('identifyusermessage', function() {
 	return obj;
 });
 
-/* Custom userPrefix */
+//
+//FORCED USERNAME PREFIX
+//
+
 four51.app.directive('prefix', function() {
-	return {
-		restrict: 'A',
-		require: 'ngModel',
-		link: function(scope, element, attrs, controller) {
-			function ensurePrefix(value) {
-				return 'PUPX-' + value;
-			}
-			controller.$parsers.push(ensurePrefix);
-		}
-	};
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, element, attrs, controller) {
+            function ensurePrefix(value) {
+                    return 'tricor' + value;
+                }
+            controller.$parsers.push(ensurePrefix);
+        }
+    };
 });

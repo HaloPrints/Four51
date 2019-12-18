@@ -1,7 +1,7 @@
 <div class="panel panel-default panel-order">
     <div class="panel-heading" ng-class="{'no': cart_billing.$invalid, 'yes': !cart_billing.$invalid, 'open': checkOutSection == 'billing' }">
         <h3 ng-click="checkOutSection = 'billing'" class="panel-title">
-            <i class="pull-left fa fa-check-circle"></i>
+            <i class="pull-left" ng-class="{'fa fa-newcheck': cart_billing.$invalid, 'fa fa-check': !cart_billing.$invalid }"></i>
             {{'Billing' | r | xlat}}
             <i class="pull-right" ng-class="{'fa fa-caret-up': checkOutSection == 'billing', 'fa fa-caret-down': checkOutSection == 'shipping' || checkOutSection == 'order' }"></i>
         </h3>
@@ -10,7 +10,7 @@
         <div>
             <billingmessage />
         </div>
-        <sameasshipaddresscheckbox></sameasshipaddresscheckbox>
+		<sameasshipaddresscheckbox></sameasshipaddresscheckbox>
         <div ng-show="billaddressform || (billaddresses.length == 0 && user.Permissions.contains('CreateBillToAddress'))">
             <addressinput address='billaddress' user='user'></addressinput>
         </div>
@@ -19,18 +19,10 @@
                 <div>
                     <paymentselector></paymentselector>
                     <br /><br />
-                    <div class="view-form-icon guest-email" ng-if="BillAddress && user.Type != 'Customer'">
-                        <label>{{'Guest Checkout Email' | r | xlat}}</label>
-                        <input class="form-control" type="email" name="email" ng-model="user.guestEmail" placeholder="{{'Email Address' | r | xlat}}" ng-pattern="/^(([^<>()[\]\\.,;:\s@\']+(\.[^<>()[\]\\.,;:\s@\']+)*)|(\'.+\'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/" required />
-                        <span class="required" ng-show="cart_billing.$invalid && showErrors && !cart_billing.email.$error.pattern">Please provide an email address</span>
-                        <span class="required" ng-show="cart_billing.$invalid && showErrors && cart_billing.email.$error.pattern">Invalid email address</span>
-                        <i class="fa fa-envelope-o"></i>
-                        <br/>
-                    </div>
                     <div class="view-form-icon" ng-show="billaddresses.length > 0">
                         <div ng-class="{'view-form-select': !currentOrder.BillAddressID, '': currentOrder.BillAddressID }">
                             <label class="required">{{('Billing' | r) + ' ' + ('Address' | r) | xlat}}</label>
-                            <select class="form-control" name="billingAddress"
+                            <select class="form-control" ng-show="billaddresses" name="billingAddress"
                                     ng-options="address.ID as address.AddressName for address in billaddresses | filter:{IsBilling:true}" ng-model="currentOrder.BillAddressID"
                                     ng-required="currentOrder.BillingEnabled">
                                 <option value=""></option>
@@ -42,7 +34,7 @@
                         <p><strong><small>{{('Billing' | r) + ' ' + ('Location' | r) | xlat}}</small></strong></p>
                         <p ng-show="BillAddress.AddressName"><small>{{BillAddress.AddressName}}</small></p>
                         <p ng-show="BillAddress.CompanyName"><small>{{BillAddress.CompanyName}}</small></p>
-                        <p ng-show="(BillAddress.FirstName || BillAddress.LastName)">
+                        <p ng-show="(BillAddress.FirstName || BillAddress.LastName) && (!user.Permissions.contains('EditBillToName') && BillAddress.IsCustEditable)">
                             <small>{{BillAddress.FirstName + ' ' + BillAddress.LastName}}</small>
                         </p>
                         <div class="row" ng-show="user.Permissions.contains('EditBillToName') && !BillAddress.IsCustEditable">
@@ -57,7 +49,7 @@
                         </div>
                         <p ng-show="BillAddress.Street1"><small>{{BillAddress.Street1}}</small></p>
                         <p ng-show="BillAddress.Street2"><small>{{BillAddress.Street2}}</small></p>
-                        <p ng-show="BillAddress.City || BillAddress.State || BillAddress.Zip"><small>{{BillAddress.City}}<span ng-if="ShipAddress.City && ShipAddress.State">, </span> {{BillAddress.State}} {{BillAddress.Zip}}</small></p>
+                        <p ng-show="BillAddress.City || BillAddress.State || BillAddress.Zip"><small>{{BillAddress.City}}<span ng-if="BillAddress.City && BillAddress.State">, </span> {{BillAddress.State}} {{BillAddress.Zip}}</small></p>
                         <p ng-show="BillAddress.Phone"><small>{{BillAddress.Phone}}</small></p>
                     </div>
                 </div>

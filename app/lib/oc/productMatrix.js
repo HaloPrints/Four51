@@ -17,19 +17,18 @@ function productmatrix() {
 
     function template() {
         return [
-            '<div class="panel panel-no-panels">',
-            '<div class="panel-body">',
-            '<form name="addVariantsToOrderForm" ng-submit="addVariantsToOrder()">',
-            '<div class="matrix">',
+            '<style>.matrix-grid > div {padding: 0;}.matrix-grid > div > div {text-align: center;height: 50px;padding: 10px 5px;}.matrix-grid > div > div:nth-of-type(even) {background-color: #f5f5f5;}.matrix-grid > div:last-of-type > div {padding: 5px;}.matrix-grid > div:last-of-type > div input {text-align: center;}.qty-invalid{border-color: #d9534f;-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);color: #ccc;}</style>',
+            '<div>',
             '<loadingindicator ng-show="matrixLoadingIndicator" />',
             '<div ng-repeat="group in comboVariants" ng-show="specCount == 2 && (group | filter:{Show: true}).length > 0">',
             '<h3>{{group.DisplayName}}</h3>',
             '<div class="row matrix-grid">',
             '<div class="col-xs-3"><div>{{spec2Name}}</div><div ng-repeat="item in group | orderobjectby:\'ListOrder\':false | filter:{Show: true}"><b>{{item.DisplayName[1]}}</b></div></div>',
+            '<div class="col-xs-2" ng-show="product.DisplayInventory"><div>{{\'Quantity Available\' | r}}</div><div ng-repeat="item in group | orderobjectby:\'ListOrder\':false | filter:{Show: true}">{{item.QuantityAvailable}}</div></div>',
+            '<div class="col-xs-1" ng-show="displayOnOrder"><div>{{\'On Order\' | r}}</div><div ng-repeat="item in group | orderobjectby:\'ListOrder\':false | filter:{Show: true}">{{item.OrderQuantity}}</div></div>',
             '<div class="col-xs-3"><div>{{\'Price\' | r}}</div><div ng-repeat="item in group | orderobjectby:\'ListOrder\':false | filter:{Show: true}">{{(product.StandardPriceSchedule.PriceBreaks[0].Price + item.Markup) | currency}}</div></div>',
-            '<div class="col-xs-2" ng-show="product.DisplayInventory"><div><span class="hidden-xs">{{\'Quantity Available\' | r}}</span><span class="visible-xs hidden-sm">{{\'Qty Avail\' | r}}</span>}</div><div ng-repeat="item in group | orderobjectby:\'ListOrder\':false | filter:{Show: true}">{{item.QuantityAvailable}}</div></div>',
             '<div ng-class="{\'col-xs-3\':(product.DisplayInventory && displayOnOrder),\'col-xs-5\':(!product.DisplayInventory && displayOnOrder),\'col-xs-4\':(product.DisplayInventory && !displayOnOrder),\'col-xs-6\':(!product.DisplayInventory && !displayOnOrder)}">',
-            '<div class="quantity">{{\'Quantity\' | r}}</div>',
+            '<div>{{\'Quantity\' | r}}</div>',
             '<div ng-repeat="item in group | orderobjectby:\'ListOrder\':false | filter:{Show: true}">',
             '<div>',
             '<select id="451qa_input_qty" class="form-control" ng-change="qtyChanged()" ng-if="product.PriceSchedule.RestrictedQuantity" ng-model="item.Quantity" ng-options="pb.Quantity as getRestrictedQtyText(pb, product.QuantityMultiplier) for pb in product.PriceSchedule.PriceBreaks"><option value=""></option></select>',
@@ -42,10 +41,11 @@ function productmatrix() {
             '<div ng-show="specCount == 1">',
             '<div class="row matrix-grid">',
             '<div class="col-xs-3"><div>{{spec1Name}}</div><div ng-repeat="group in comboVariants | orderobjectby:\'ListOrder\':false | filter:{Show: true}"><b>{{group.DisplayName}}</b></div></div>',
+            '<div class="col-xs-2" ng-show="product.DisplayInventory"><div>{{\'Quantity Available\' | r}}</div><div ng-repeat="group in comboVariants | orderobjectby:\'ListOrder\':false | filter:{Show: true}">{{group.QuantityAvailable}}</div></div>',
+            '<div class="col-xs-1" ng-show="displayOnOrder"><div>{{\'On Order\' | r}}</div><div ng-repeat="group in comboVariants | orderobjectby:\'ListOrder\':false | filter:{Show: true}">{{group.OrderQuantity}}</div></div>',
             '<div class="col-xs-3"><div>{{\'Price\' | r}}</div><div ng-repeat="group in comboVariants | orderobjectby:\'ListOrder\':false | filter:{Show: true}">{{(product.StandardPriceSchedule.PriceBreaks[0].Price + group.Markup) | currency}}</div></div>',
-            '<div class="col-xs-2" ng-show="product.DisplayInventory"><div><span class="hidden-xs">{{\'Quantity Available\' | r}}</span><span class="visible-xs hidden-sm">{{\'Qty Avail\' | r}}</span></div><div ng-repeat="group in comboVariants | orderobjectby:\'ListOrder\':false | filter:{Show: true}">{{group.QuantityAvailable}}</div></div>',
             '<div ng-class="{\'col-xs-3\':(product.DisplayInventory && displayOnOrder),\'col-xs-5\':(!product.DisplayInventory && displayOnOrder),\'col-xs-4\':(product.DisplayInventory && !displayOnOrder),\'col-xs-6\':(!product.DisplayInventory && !displayOnOrder)}">',
-            '<div class="quantity">{{\'Quantity\' | r}}</div>',
+            '<div>{{\'Quantity\' | r}}</div>',
             '<div ng-repeat="group in comboVariants | orderobjectby:\'ListOrder\':false | filter:{Show: true}">',
             '<div>',
             '<select id="451qa_input_qty" class="form-control" ng-change="qtyChanged()" ng-if="product.PriceSchedule.RestrictedQuantity" ng-model="group[0].Quantity" ng-options="pb.Quantity as getRestrictedQtyText(pb, product.QuantityMultiplier) for pb in product.PriceSchedule.PriceBreaks"><option value=""></option></select>',
@@ -56,11 +56,8 @@ function productmatrix() {
             '</div>',
             '</div>',
             '<div class="alert alert-danger" style="margin-top:20px;" ng-show="qtyError" ng-bind-html="qtyError"></div>',
-            '<button class="btn btn-success btn-block btn-lg" type="submit" id="451_btn_orderadd">',
+            '<button class="btn btn-success btn-block btn-lg" type="button" id="451_btn_orderadd" ng-disabled="qtyError" ng-click="addVariantsToOrder()">',
             '<loadingindicator ng-show="addToOrderIndicator" /><i ng-show="qtyError" class="fa fa-warning"></i> {{addToOrderText | r}}</button>',
-            '</div>',
-            '</form>',
-            '</div>',
             '</div>'
         ].join('');
     }
@@ -93,7 +90,6 @@ function ProductMatrixCtrl($scope, $routeParams, $location, ProductDisplayServic
             }
         }, 1, 100, searchTerm);
     }
-
     init($scope.searchTerm);
 
     $scope.qtyChanged = function() {
@@ -305,6 +301,9 @@ function ProductMatrix($451, Variant) {
                     }
                     _then(success, comboVariants, defineVariantSpecCount, spec1Name, spec2Name);
                 }
+            }, function(ex){
+                //count variant even if it is not active
+                variantCount++;
             });
         }
     }
@@ -314,6 +313,7 @@ function ProductMatrix($451, Variant) {
         var priceSchedule = product.StandardPriceSchedule;
         var totalQty = 0;
 
+
         angular.forEach(matrix, function (group) {
             angular.forEach(group, function (variant) {
                 var qty = variant.Quantity;
@@ -322,9 +322,7 @@ function ProductMatrix($451, Variant) {
                 if (variant.Quantity) {
                     if (!$451.isPositiveInteger(qty)) {
                         qtyError += "<p>Please select a valid quantity for " + variant.DisplayName[0] + " " + (variant.DisplayName[1] ? variant.DisplayName[1] : "") + "</p>";
-                        variant.QtyError = true;
                     }
-
                     else {
                         totalQty += +(variant.Quantity);
                     }

@@ -12,7 +12,7 @@ four51.app.config(['$routeProvider', '$locationProvider', function($routeProvide
     $routeProvider.
         when('/listOrders', { templateUrl: 'partials/listOrders.html', controller: 'ListOrdersCtrl' }).
         when('/orderdetails/:orderid', {templateUrl: 'partials/orderDetails.html', controller: 'OrderDetailsCtrl'}).
-        //when('/catalog', { templateUrl: 'partials/categoryView.html', controller: 'CategoryCtrl' }).
+        when('/catalog', { templateUrl: 'partials/categoryView.html', controller: 'CategoryCtrl' }).
         when('/catalog/:categoryInteropID', { templateUrl: 'partials/categoryView.html', controller: 'CategoryCtrl' }).
         when('/kit/:id', {templateUrl: 'partials/kitView.html', controller: 'KitCtrl'}).
         when('/kit/:id/:lineitemid', {templateUrl: 'partials/kitView.html', controller: 'KitCtrl'}).
@@ -44,7 +44,6 @@ four51.app.config(['$routeProvider', '$locationProvider', function($routeProvide
         when('/conditions', { templateUrl: 'partials/Conditions/conditions.html', controller: 'ConditionsCtrl' }).
         when('/reports', { templateUrl: 'partials/reportsView.html', controller: 'ReportsCtrl' }).
         when('/report/:id', { templateUrl: 'partials/Reporting/reportView.html', controller: 'ReportCtrl' }).
-        when('/FAQ', { templateUrl: 'partials/controls/FAQ.html' }).
         when('/contact', { templateUrl: 'partials/Messages/contact.html', controller: 'ContactUsCtrl' }).
-        otherwise({redirectTo: '/catalog/AllProducts'});
+        otherwise({redirectTo: '/catalog'});
 }]);

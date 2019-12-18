@@ -50,6 +50,20 @@ four51.app.controller('NavCtrl', ['$location', '$route', '$scope', '$451', 'User
         }
 
         $scope.$on('event:orderUpdate', function(event, order) {
-            $scope.cartCount = order ? (order.Status == 'Unsubmitted' || order.Status == 'AwaitingApproval') ? order.LineItems.length : null : null;
+            $scope.cartCount = (order ? ((order.Status == 'Unsubmitted') ? order.LineItems.length : null) : null);
         });
+        
+        
+	function toggletrade($scope) {
+
+	    $scope.visible = true;
+	    
+	    $scope.toggle = function() {
+	        $scope.visible = !scope.visible;
+	    };
+
+	}        
+        
+        
+        
     }]);

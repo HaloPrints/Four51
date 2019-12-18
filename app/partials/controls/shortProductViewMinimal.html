@@ -1,5 +1,5 @@
-<div class="451qa_prod_item row">
-    <div class="col-xs-12 text-center">
+<div class="451qa_prod_item row proddivflex">
+    <div class="col-xs-12 text-center prodimgflex">
         <a class="thumbnail" href="product/{{LineItem.Product.InteropID}}">
             <figure ng-show="LineItem.Variant.SmallImageUrl || LineItem.Product.SmallImageUrl" >
                 <img ng-src="{{LineItem.Variant.SmallImageUrl || LineItem.Product.SmallImageUrl}}"/>
@@ -11,15 +11,25 @@
     </div>
     <div class="col-xs-12 text-left">
         <div class="panel-body">
-            <!--TRT-01898 Product Name wrapping in Chrome-->
-            <h3 ng-show="!LineItem.Product.NameModify">{{LineItem.Product.Name}}</h3>
-            <h3 ng-show="LineItem.Product.NameModify">{{LineItem.Product.newName}}<span>T-Shirt</span></h3>
-            <!--TRT-01898 Product Name wrapping in Chrome-->
+		    <h4 class="text-center">{{LineItem.Product.ExternalID}}</h4>
+            <h3 class="text-center">{{LineItem.Product.Name}}</h3>
+            <div>
+                <p ng-bind-html="trustedDescription(LineItem.Product)" ng-show="LineItem.Product.Description" />
+                <p ng-show="LineItem.PriceSchedule.PriceBreaks[0]" ng-if="!(user.Permissions.contains('HidePricing'))">
+                    {{LineItem.PriceSchedule.PriceBreaks[0].Quantity}}
+                    <span ng-show="LineItem.Product.QuantityMultiplier > 1">(x {{LineItem.Product.QuantityMultiplier}})</span>
+                    {{'for' | xlat}} {{LineItem.PriceSchedule.PriceBreaks[0].Price * LineItem.PriceSchedule.PriceBreaks[0].Quantity | culturecurrency}}
+                </p>
+                <p ng-show="LineItem.Product.UnitOfMeasure">
+                    {{'Unit of Measure' | r | xlat}}: {{LineItem.Product.UnitOfMeasure}}
+                </p>
+
+                <p ng-show="LineItem.Product.DisplayInventory && inventoryDisplay(LineItem.Product, LineItem.Variant) != undefined">
+                    {{'Quantity Available' | r | xlat}}: {{inventoryDisplay(LineItem.Product, LineItem.Variant) }}
+                </p>
+            </div>
             <br/>
-            <span class="price" ng-show="LineItem.PriceSchedule.PriceBreaks[0]" ng-if="!(user.Permissions.contains('HidePricing'))">
-                {{LineItem.PriceSchedule.PriceBreaks[0].Price | culturecurrency}}
-            </span>
-            <a class="btn btn-success btn-sm" href="product/{{LineItem.Product.InteropID}}">{{('Add' | r) + ' ' + ('to' | r) + ' ' + ('Cart' | r) | xlat}}</a>
+            <a class="btn btn-default btn-block" href="product/{{LineItem.Product.InteropID}}">{{('View' | r) + ' ' + ('Product' | r) | xlat}}</a>
         </div>
     </div>
 </div>
