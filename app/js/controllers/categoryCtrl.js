@@ -86,7 +86,7 @@ function ($routeParams, $sce, $scope, $451, Category, Product, Nav, $location) {
 	
 	// SHOW BUCKETS
 	function buckets() {
-	    var homeurl = 'https://tricor.four51ordercloud.com/Test/catalog';
+	    var homeurl = 'https://ZugJug.four51ordercloud.com/Halo_Test/catalog';
         var myurl = window.location;
 	    
 	    if(homeurl == myurl) {

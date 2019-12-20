@@ -27,7 +27,7 @@ four51.app.directive('prefix', function() {
         require: 'ngModel',
         link: function(scope, element, attrs, controller) {
             function ensurePrefix(value) {
-                    return 'tricor' + value;
+                    return 'test' + value;
                 }
             controller.$parsers.push(ensurePrefix);
         }
