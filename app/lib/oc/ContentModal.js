@@ -68,7 +68,6 @@ function ContentModalCtrl($scope, $modal) {
                 '</a>',
                 '</div>',
                 '<div class="modal-body">',
-                '<iframe src="https://my.kitbuilder.redsharkgroup.com/CARU/Home.aspx" style="height: 600px; width: 1030px; z-index:99; border: 2px solid black;"></iframe>',
                 //'<h3>Heading</h3>',
                 //content block 1
                 //'<h4>Subheading</h4>',
